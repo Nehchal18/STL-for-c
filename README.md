@@ -255,7 +255,3 @@ We welcome contributions from the community to help improve and expand the C-STL
 8. **Spreading the Word**: If you find this library useful, consider sharing it with others! Whether it's through social media, blog posts, or talks at conferences, your endorsement can help grow the community around C-STL.
 
 Thank you for your interest in contributing to C-STL! We look forward to your participation in the project. If you have any questions or need guidance, feel free to reach out to the maintainers by opening an issue or contacting us through the project's communication channels.
-
----
-
-This version includes a detailed "Contributing" section, offering various ways to engage with the project. Let me know if you need further adjustments!

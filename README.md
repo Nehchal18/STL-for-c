@@ -59,6 +59,8 @@ Vectors in C-STL are dynamic arrays that automatically resize as elements are ad
 #include "vector.h"
 
 int main() {
+
+    // Before using a vector, you need to initialize it. This sets the initial size to 0 and the capacity to 4.
     Vector vec;
     vector_init(&vec);
 
@@ -66,13 +68,39 @@ int main() {
     vector_push_back(&vec, 10);
     vector_push_back(&vec, 20);
 
-    // Access elements
-    int firstElement = vector_get(&vec, 0);
+    // Front Element: Access the first element.
+    int front = vector_front(&vec);
 
-    // Remove an element
-    vector_pop_back(&vec);
+    // Pop Back: Remove the last element from the vector.
+    vector_int_pop_back(&vec);
 
+    // Back Element: Access the last element.
+    int back = vector_back(&vec);
+
+    // Element by Index: Access an element at a specific index.
+    int value = vector_int_get(&vec, 2);
+
+    // Reverse the Vector: Reverse the order of elements in the vector.
+    vector_int_reverse(&vec);
+
+    // Size: Get the number of elements in the vector.
+    size_t size = vector_int_size(&vec);
+
+    // Capacity: Get the capacity of the vector (the total number of elements it can hold before resizing).
+    size_t capacity = vector_int_capacity(&vec);
+
+    // Check if Empty: Check if the vector is empty.
+    bool is_empty = vector_int_empty(&vec);
+
+    // Find an Element: Find the index of an element. Returns -1 if the element is not found.
+    int index = vector_int_find(&vec, 20);
+
+    // Clear: Remove all elements from the vector, but retain its capacity.
+    vector_int_clear(&vec);
+
+    // Free: Free the memory allocated to the vector.
     vector_free(&vec);
+
     return 0;
 }
 ```

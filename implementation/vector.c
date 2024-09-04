@@ -132,4 +132,3 @@ void vector_sort(vector *vec, void (*sort_function)(void*, size_t, size_t, int (
         sort_function(vec->data, vec->size, vec->elem_size, compare);
     }
 }
-

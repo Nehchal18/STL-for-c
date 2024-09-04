@@ -2,6 +2,7 @@
 #include "vector.h"
 #include "sort.h"
 #include "utils.h"
+#include "list.h"
 
 int compare_int(const void *a, const void *b) {
     return *(int*)a == *(int*)b ? 0 : 1;
@@ -13,6 +14,22 @@ int compare_float(const void *a, const void *b) {
 
 int compare_string(const void *a, const void *b) {
     return strcmp(*(const char**)a, *(const char**)b);
+}
+
+void print_int(void *data) {
+    printf("%d ", *(int *)data);
+}
+
+void print_float(void *data) {
+    printf("%.2f ", *(float *)data);
+}
+
+void print_string(void *data) {
+    printf("%s ", *(char **)data);
+}
+
+void free_string(void *data) {
+    free(*(char **)data);
 }
 
 int main() {
@@ -194,6 +211,161 @@ int main() {
     vector_free(&string_vector);
     */
     // --------------------------------------- Test List operations ---------------------------------------
+    // /*
+    SinglyLinkedList s_list_int;
+    singly_list_init(&s_list_int, sizeof(int));
+
+    int int_values[] = {10, 20, 30, 40, 50};
+    for (size_t i = 0; i < sizeof(int_values) / sizeof(int_values[0]); i++) {
+        singly_list_insert(&s_list_int, i, &int_values[i]);
+    }
+
+    printf("Singly Linked List (Integers): ");
+    for (size_t i = 0; i < singly_list_size(&s_list_int); i++) {
+        int *value = (int *)singly_list_get(&s_list_int, i);
+        print_int(value);
+    }
+    printf("\n");
+
+    singly_list_remove(&s_list_int, 2, NULL); // Remove an element at index 2
+    printf("After Removing index 2 (Integers): ");
+    for (size_t i = 0; i < singly_list_size(&s_list_int); i++) {
+        int *value = (int *)singly_list_get(&s_list_int, i);
+        print_int(value);
+    }
+    printf("\n");
+
+    singly_list_destroy(&s_list_int, NULL);
+
+    // Test Singly Linked List with floats
+    SinglyLinkedList s_list_float;
+    singly_list_init(&s_list_float, sizeof(float));
+
+    float float_values[] = {1.1f, 2.2f, 3.3f, 4.4f, 5.5f};
+    for (size_t i = 0; i < sizeof(float_values) / sizeof(float_values[0]); i++) {
+        singly_list_insert(&s_list_float, i, &float_values[i]);
+    }
+
+    printf("Singly Linked List (Floats): ");
+    for (size_t i = 0; i < singly_list_size(&s_list_float); i++) {
+        float *value = (float *)singly_list_get(&s_list_float, i);
+        print_float(value);
+    }
+    printf("\n");
+
+    singly_list_remove(&s_list_float, 1, NULL); // Remove an element at index 1
+    printf("After Removing index 1 (Floats): ");
+    for (size_t i = 0; i < singly_list_size(&s_list_float); i++) {
+        float *value = (float *)singly_list_get(&s_list_float, i);
+        print_float(value);
+    }
+    printf("\n");
+
+    singly_list_destroy(&s_list_float, NULL);
+
+    // Test Singly Linked List with strings
+    SinglyLinkedList s_list_str;
+    singly_list_init(&s_list_str, sizeof(char *));
+
+    char *str_values[] = {"apple", "banana", "cherry", "date", "elderberry"};
+    for (size_t i = 0; i < sizeof(str_values) / sizeof(str_values[0]); i++) {
+        char *str_copy = strdup(str_values[i]);
+        singly_list_insert(&s_list_str, i, &str_copy);
+    }
+
+    printf("Singly Linked List (Strings): ");
+    for (size_t i = 0; i < singly_list_size(&s_list_str); i++) {
+        char **value = (char **)singly_list_get(&s_list_str, i);
+        print_string(value);
+    }
+    printf("\n");
+
+    singly_list_remove(&s_list_str, 3, free_string); // Remove an element at index 3
+    printf("After Removing index 3 (Strings): ");
+    for (size_t i = 0; i < singly_list_size(&s_list_str); i++) {
+        char **value = (char **)singly_list_get(&s_list_str, i);
+        print_string(value);
+    }
+    printf("\n");
+
+    singly_list_destroy(&s_list_str, free_string);
+
+    // Test Doubly Linked List with integers
+    DoublyLinkedList d_list_int;
+    doubly_list_init(&d_list_int, sizeof(int));
+
+    for (size_t i = 0; i < sizeof(int_values) / sizeof(int_values[0]); i++) {
+        doubly_list_insert(&d_list_int, i, &int_values[i]);
+    }
+
+    printf("Doubly Linked List (Integers): ");
+    for (size_t i = 0; i < doubly_list_size(&d_list_int); i++) {
+        int *value = (int *)doubly_list_get(&d_list_int, i);
+        print_int(value);
+    }
+    printf("\n");
+
+    doubly_list_remove(&d_list_int, 0, NULL); // Remove an element at index 0
+    printf("After Removing index 0 (Integers): ");
+    for (size_t i = 0; i < doubly_list_size(&d_list_int); i++) {
+        int *value = (int *)doubly_list_get(&d_list_int, i);
+        print_int(value);
+    }
+    printf("\n");
+
+    doubly_list_destroy(&d_list_int, NULL);
+
+    // Test Doubly Linked List with floats
+    DoublyLinkedList d_list_float;
+    doubly_list_init(&d_list_float, sizeof(float));
+
+    for (size_t i = 0; i < sizeof(float_values) / sizeof(float_values[0]); i++) {
+        doubly_list_insert(&d_list_float, i, &float_values[i]);
+    }
+
+    printf("Doubly Linked List (Floats): ");
+    for (size_t i = 0; i < doubly_list_size(&d_list_float); i++) {
+        float *value = (float *)doubly_list_get(&d_list_float, i);
+        print_float(value);
+    }
+    printf("\n");
+
+    doubly_list_remove(&d_list_float, 4, NULL); // Remove an element at index 4
+    printf("After Removing index 4 (Floats): ");
+    for (size_t i = 0; i < doubly_list_size(&d_list_float); i++) {
+        float *value = (float *)doubly_list_get(&d_list_float, i);
+        print_float(value);
+    }
+    printf("\n");
+
+    doubly_list_destroy(&d_list_float, NULL);
+
+    // Test Doubly Linked List with strings
+    DoublyLinkedList d_list_str;
+    doubly_list_init(&d_list_str, sizeof(char *));
+
+    for (size_t i = 0; i < sizeof(str_values) / sizeof(str_values[0]); i++) {
+        char *str_copy = strdup(str_values[i]);
+        doubly_list_insert(&d_list_str, i, &str_copy);
+    }
+
+    printf("Doubly Linked List (Strings): ");
+    for (size_t i = 0; i < doubly_list_size(&d_list_str); i++) {
+        char **value = (char **)doubly_list_get(&d_list_str, i);
+        print_string(value);
+    }
+    printf("\n");
+
+    doubly_list_remove(&d_list_str, 2, free_string); // Remove an element at index 2
+    printf("After Removing index 2 (Strings): ");
+    for (size_t i = 0; i < doubly_list_size(&d_list_str); i++) {
+        char **value = (char **)doubly_list_get(&d_list_str, i);
+        print_string(value);
+    }
+    printf("\n");
+
+    doubly_list_destroy(&d_list_str, free_string);
+    // */
 
     return 0;
 }

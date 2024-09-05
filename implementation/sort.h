@@ -1,3 +1,6 @@
+#ifndef SORT_H
+#define SORT_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,3 +31,5 @@ void selection_sort(void *arr, size_t n, size_t elem_size, int (*compare)(const 
 void insertion_sort(void *arr, size_t n, size_t elem_size, int (*compare)(const void *, const void *));
 void merge_sort(void *arr, size_t n, size_t elem_size, int (*compare)(const void *, const void *));
 void quick_sort(void *arr, size_t n, size_t elem_size, int (*compare)(const void *, const void *));
+
+#endif // SORT_H

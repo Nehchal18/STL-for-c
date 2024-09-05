@@ -1,3 +1,6 @@
+#ifndef LIST_H
+#define LIST_H
+
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -32,7 +35,7 @@ typedef struct {
 
 // Singly linked list functions
 void singly_list_init(SinglyLinkedList *list, size_t elem_size);
-void singly_list_destroy(SinglyLinkedList *list, void (*free_func)(void *));
+void singly_list_free(SinglyLinkedList *list, void (*free_func)(void *));
 bool singly_list_insert(SinglyLinkedList *list, size_t index, void *data);
 bool singly_list_remove(SinglyLinkedList *list, size_t index, void (*free_func)(void *));
 void *singly_list_get(SinglyLinkedList *list, size_t index);
@@ -42,10 +45,12 @@ size_t singly_list_size(SinglyLinkedList *list);
 
 // Doubly linked list functions
 void doubly_list_init(DoublyLinkedList *list, size_t elem_size);
-void doubly_list_destroy(DoublyLinkedList *list, void (*free_func)(void *));
+void doubly_list_free(DoublyLinkedList *list, void (*free_func)(void *));
 bool doubly_list_insert(DoublyLinkedList *list, size_t index, void *data);
 bool doubly_list_remove(DoublyLinkedList *list, size_t index, void (*free_func)(void *));
 void *doubly_list_get(DoublyLinkedList *list, size_t index);
 void doubly_list_clear(DoublyLinkedList *list, void (*free_func)(void *));
 bool doubly_list_empty(DoublyLinkedList *list);
 size_t doubly_list_size(DoublyLinkedList *list);
+
+#endif // LIST_H

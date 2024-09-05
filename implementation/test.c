@@ -3,6 +3,8 @@
 #include "sort.h"
 #include "utils.h"
 #include "list.h"
+#include "stack.h"
+#include "queue.h"
 
 int compare_int(const void *a, const void *b) {
     return *(int*)a == *(int*)b ? 0 : 1;
@@ -210,8 +212,9 @@ int main() {
     // Free the string vector
     vector_free(&string_vector);
     */
-    // --------------------------------------- Test List operations ---------------------------------------
-    // /*
+
+    // --------------------------------------- Test List operations -----------------------------------------
+    /*
     SinglyLinkedList s_list_int;
     singly_list_init(&s_list_int, sizeof(int));
 
@@ -235,7 +238,7 @@ int main() {
     }
     printf("\n");
 
-    singly_list_destroy(&s_list_int, NULL);
+    singly_list_free(&s_list_int, NULL);
 
     // Test Singly Linked List with floats
     SinglyLinkedList s_list_float;
@@ -261,7 +264,7 @@ int main() {
     }
     printf("\n");
 
-    singly_list_destroy(&s_list_float, NULL);
+    singly_list_free(&s_list_float, NULL);
 
     // Test Singly Linked List with strings
     SinglyLinkedList s_list_str;
@@ -288,7 +291,7 @@ int main() {
     }
     printf("\n");
 
-    singly_list_destroy(&s_list_str, free_string);
+    singly_list_free(&s_list_str, free_string);
 
     // Test Doubly Linked List with integers
     DoublyLinkedList d_list_int;
@@ -313,7 +316,7 @@ int main() {
     }
     printf("\n");
 
-    doubly_list_destroy(&d_list_int, NULL);
+    doubly_list_free(&d_list_int, NULL);
 
     // Test Doubly Linked List with floats
     DoublyLinkedList d_list_float;
@@ -338,7 +341,7 @@ int main() {
     }
     printf("\n");
 
-    doubly_list_destroy(&d_list_float, NULL);
+    doubly_list_free(&d_list_float, NULL);
 
     // Test Doubly Linked List with strings
     DoublyLinkedList d_list_str;
@@ -364,7 +367,145 @@ int main() {
     }
     printf("\n");
 
-    doubly_list_destroy(&d_list_str, free_string);
+    doubly_list_free(&d_list_str, free_string);
+    */
+
+    // --------------------------------------- Test Stack operations -----------------------------------------
+    /*
+    // Test stack with integers
+    Stack int_stack;
+    stack_init(&int_stack, sizeof(int));
+    int a = 10, b = 20, c = 30;
+    stack_push(&int_stack, &a);
+    stack_push(&int_stack, &b);
+    stack_push(&int_stack, &c);
+    printf("Integer stack top: %d\n", *(int *)stack_top(&int_stack));
+    stack_pop(&int_stack, NULL);
+    printf("Integer stack top after pop: %d\n", *(int *)stack_top(&int_stack));
+    printf("Integer stack size: %zu\n", stack_size(&int_stack));
+    stack_free(&int_stack, NULL);
+
+    // Test stack with floating-point numbers
+    Stack float_stack;
+    stack_init(&float_stack, sizeof(float));
+    float x = 1.1, y = 2.2, z = 3.3;
+    stack_push(&float_stack, &x);
+    stack_push(&float_stack, &y);
+    stack_push(&float_stack, &z);
+    printf("Float stack top: %.2f\n", *(float *)stack_top(&float_stack));
+    stack_pop(&float_stack, NULL);
+    printf("Float stack top after pop: %.2f\n", *(float *)stack_top(&float_stack));
+    printf("Float stack size: %zu\n", stack_size(&float_stack));
+    stack_free(&float_stack, NULL);
+
+    // Test stack with strings
+    Stack string_stack;
+    stack_init(&string_stack, sizeof(char *));
+    char *str1 = strdup("hello");
+    char *str2 = strdup("world");
+    char *str3 = strdup("!");
+    stack_push(&string_stack, &str1);
+    stack_push(&string_stack, &str2);
+    stack_push(&string_stack, &str3);
+    printf("String stack top: %s\n", *(char **)stack_top(&string_stack));
+    stack_pop(&string_stack, free_string);
+    printf("String stack top after pop: %s\n", *(char **)stack_top(&string_stack));
+    printf("String stack size: %zu\n", stack_size(&string_stack));
+    stack_free(&string_stack, free_string);
+    */
+
+    // --------------------------------------- Test Queue operations -----------------------------------------
+    // /*
+    // Testing queue with integers
+    // Queue queue;
+    // queue_init(&queue, sizeof(int));
+    // int a = 10, b = 20, c = 30;
+    // printf("\n--- Testing Integer Queue ---\n");
+    // queue_enqueue(&queue, &a);
+    // queue_enqueue(&queue, &b);
+    // queue_enqueue(&queue, &c);
+    // printf("Front of queue: %d\n", *(int *)queue_front(&queue));
+    // queue_dequeue(&queue, NULL);
+    // printf("Front after dequeue: %d\n", *(int *)queue_front(&queue));
+    // printf("Queue size: %zu\n", queue_size(&queue));
+    // queue_free(&queue, NULL);
+
+    // Testing queue with floats
+    // Queue queue;
+    // queue_init(&queue, sizeof(float));
+    // float a = 1.1, b = 2.2, c = 3.3;
+    // printf("\n--- Testing Float Queue ---\n");
+    // queue_enqueue(&queue, &a);
+    // queue_enqueue(&queue, &b);
+    // queue_enqueue(&queue, &c);
+    // printf("Front of queue: %.1f\n", *(float *)queue_front(&queue));
+    // queue_dequeue(&queue, NULL);
+    // printf("Front after dequeue: %.1f\n", *(float *)queue_front(&queue));
+    // printf("Queue size: %zu\n", queue_size(&queue));
+    // queue_free(&queue, NULL);
+
+    // Testing queue with strings
+    // Queue queue;
+    // queue_init(&queue, sizeof(char *));
+    // char *a = strdup("Apple");
+    // char *b = strdup("Banana");
+    // char *c = strdup("Cherry");
+    // printf("\n--- Testing String Queue ---\n");
+    // queue_enqueue(&queue, &a);
+    // queue_enqueue(&queue, &b);
+    // queue_enqueue(&queue, &c);
+    // printf("Front of queue: %s\n", *(char **)queue_front(&queue));
+    // queue_dequeue(&queue, free_string);
+    // printf("Front after dequeue: %s\n", *(char **)queue_front(&queue));
+    // printf("Queue size: %zu\n", queue_size(&queue));
+    // queue_free(&queue, free_string);
+
+    // Testing deque with integers
+    // Deque deque;
+    // deque_init(&deque, sizeof(int));
+    // int a = 10, b = 20, c = 30;
+    // printf("\n--- Testing Integer Deque ---\n");
+    // deque_push_front(&deque, &a);
+    // deque_push_back(&deque, &b);
+    // deque_push_back(&deque, &c);
+    // printf("Front of deque: %d\n", *(int *)deque_front(&deque));
+    // printf("Back of deque: %d\n", *(int *)deque_back(&deque));
+    // deque_pop_front(&deque, NULL);
+    // printf("Front after pop: %d\n", *(int *)deque_front(&deque));
+    // printf("Deque size: %zu\n", deque_size(&deque));
+    // deque_free(&deque, NULL);
+
+    // Testing deque with floats
+    // Deque deque;
+    // deque_init(&deque, sizeof(float));
+    // float a = 1.1, b = 2.2, c = 3.3;
+    // printf("\n--- Testing Float Deque ---\n");
+    // deque_push_front(&deque, &a);
+    // deque_push_back(&deque, &b);
+    // deque_push_back(&deque, &c);
+    // printf("Front of deque: %.1f\n", *(float *)deque_front(&deque));
+    // printf("Back of deque: %.1f\n", *(float *)deque_back(&deque));
+    // deque_pop_front(&deque, NULL);
+    // printf("Front after pop: %.1f\n", *(float *)deque_front(&deque));
+    // printf("Deque size: %zu\n", deque_size(&deque));
+    // deque_free(&deque, NULL);
+
+    // Testing deque with strings
+    // Deque deque;
+    // deque_init(&deque, sizeof(char *));
+    // char *a = strdup("First");
+    // char *b = strdup("Second");
+    // char *c = strdup("Third");
+    // printf("\n--- Testing String Deque ---\n");
+    // deque_push_back(&deque, &a);
+    // deque_push_front(&deque, &b);
+    // deque_push_back(&deque, &c);
+    // printf("Front of deque: %s\n", *(char **)deque_front(&deque));
+    // printf("Back of deque: %s\n", *(char **)deque_back(&deque));
+    // deque_pop_front(&deque, free_string);
+    // printf("Front after pop: %s\n", *(char **)deque_front(&deque));
+    // printf("Deque size: %zu\n", deque_size(&deque));
+    // deque_free(&deque, free_string);
     // */
 
     return 0;

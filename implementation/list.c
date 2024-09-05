@@ -6,7 +6,7 @@ void singly_list_init(SinglyLinkedList *list, size_t elem_size) {
     list->elem_size = elem_size;
 }
 
-void singly_list_destroy(SinglyLinkedList *list, void (*free_func)(void *)) {
+void singly_list_free(SinglyLinkedList *list, void (*free_func)(void *)) {
     singly_list_clear(list, free_func);
 }
 
@@ -111,7 +111,7 @@ void doubly_list_init(DoublyLinkedList *list, size_t elem_size) {
     list->elem_size = elem_size;
 }
 
-void doubly_list_destroy(DoublyLinkedList *list, void (*free_func)(void *)) {
+void doubly_list_free(DoublyLinkedList *list, void (*free_func)(void *)) {
     doubly_list_clear(list, free_func);
 }
 

@@ -1,3 +1,6 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -59,3 +62,5 @@ void vector_free(vector *v);
 
 // Sorts the elements of the vector using the specified sorting function
 void vector_sort(vector *vec, void (*sort_function)(void*, size_t, size_t, int (*compare)(const void*, const void*)), int (*compare)(const void*, const void*));
+
+#endif // VECTOR_H

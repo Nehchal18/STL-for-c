@@ -7,7 +7,7 @@
 #include <string.h>
 
 typedef struct {
-    int *data;           // Pointer to the data array
+    void *data;           // Pointer to the data array
     size_t size;         // Number of elements currently in the vector
     size_t capacity;     // Total capacity of the vector
     size_t elem_size;     // Size of each element in the vector

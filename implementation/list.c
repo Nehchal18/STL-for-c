@@ -1,4 +1,4 @@
-#include "list.h"
+#include "../headers/list.h"
 
 void singly_list_init(SinglyLinkedList *list, size_t elem_size) {
     list->head = NULL;

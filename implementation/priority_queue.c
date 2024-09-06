@@ -1,4 +1,4 @@
-#include "priority_queue.h"
+#include "../headers/priority_queue.h"
 
 // Initialize the heap with a comparison function
 void heap_init(heap *h, size_t elem_size, int (*compare)(const void*, const void*)) {

@@ -1,4 +1,4 @@
-#include "stack.h"
+#include "../headers/stack.h"
 
 // Initialize the stack
 void stack_init(Stack *stack, size_t elem_size) {

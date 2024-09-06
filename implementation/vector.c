@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "../headers/vector.h"
 
 void vector_init(vector *v, size_t elem_size) {
     if(elem_size == 0) {

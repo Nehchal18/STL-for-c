@@ -1,4 +1,4 @@
-#include "queue.h"
+#include "../headers/queue.h"
 
 void queue_init(Queue *queue, size_t elem_size) {
     singly_list_init(&queue->list, elem_size);

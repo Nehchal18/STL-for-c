@@ -56,12 +56,8 @@ To install and use the C-STL library, follow these steps:
 3. **Compile and Run Example Programs**:
 
    ```sh
-    mkdir output
-    cd ./output
-    g++ -c ../implementation/*.c
-    cd ..
-    ar rcs lib_mylib.a output/*
-    gcc -o output main.c -L. lib_mylib.a
+    ./build.sh
+    gcc -o output {c_file}.c -L. lib_mylib.a
     ./output
     ```
 

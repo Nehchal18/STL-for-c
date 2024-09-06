@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "vector.h"
-#include "sort.h"
-#include "utils.h"
-#include "list.h"
-#include "stack.h"
-#include "queue.h"
-#include "priority_queue.h"
-#include "set.h"
+#include "./headers/vector.h"
+#include "./headers/sort.h"
+#include "./headers/utils.h"
+#include "./headers/list.h"
+#include "./headers/stack.h"
+#include "./headers/queue.h"
+#include "./headers/priority_queue.h"
+#include "./headers/set.h"
 
 int int_compare(const void* a, const void* b) {
     return (*(int*)a - *(int*)b);
@@ -608,39 +608,22 @@ int main() {
     // set_destroy(float_set);
 
     // Test set with strings
-    printf("1");
-    Set* string_set = set_create(string_compare, free_string, sizeof(char));
-
+    Set* string_set = set_create(string_compare, free_string, sizeof(char*));
     char* words[] = {"apple", "banana", "cherry", "date", "fig", "grape"};
-    // char* word_copies[6];
-    printf("2");
-
-    // Insert duplicated strings into the set
     for (int i = 0; i < 6; ++i) {
-        // word_copies[i] = strdup(words[i]);  // Duplicate the string
-        set_insert(string_set, words[i]);  // Insert the duplicated string
+        char* word_copy = strdup(words[i]); 
+        set_insert(string_set, &word_copy);
     }
-
-    // Now create a dynamically allocated copy for search_word
     char* search_word = strdup("banana");
-
-    // Now use consistent comparison: pass the string pointer itself
-    if (set_contains(string_set, search_word)) {
+    if (set_contains(string_set, &search_word)) {
         printf("%s is in the set.\n", search_word);
     }
-
-    // Remove the dynamically allocated string
-    set_remove(string_set, search_word);
-
-    if (!set_contains(string_set, search_word)) {
+    set_remove(string_set, &search_word);
+    if (!set_contains(string_set, &search_word)) {
         printf("%s has been removed from the set.\n", search_word);
     }
-
-    // Free the search_word, since it was dynamically allocated
     free(search_word);
 
-    // Destroy the set (free memory for all remaining strings)
-    set_destroy(string_set);
     // */
     return 0;
 }

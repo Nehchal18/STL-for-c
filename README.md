@@ -6,10 +6,14 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Utility Functions](#utility-functions)
+  - [Sorting Algorithms](#sorting-algorithms)
   - [Vector](#vector)
   - [List](#list)
   - [Stack](#stack)
   - [Queue](#queue)
+  - [Priority Queue](#priority-queue)
+  - [Set](#set)
   - [Map](#map)
 - [Examples](#examples)
 - [License](#license)
@@ -39,6 +43,7 @@ The library will include implementations of dynamic arrays (vectors), linked lis
 To install and use the C-STL library, follow these steps:
 
 1. **Clone the Repository**:
+
    ```sh
    git clone https://github.com/nehchal18/stl-for-c.git
    cd stl-for-c
@@ -51,6 +56,108 @@ To install and use the C-STL library, follow these steps:
 
 ## Usage
 
+### Utility Functions
+
+The utility functions in C-STL provide common operations for working with data, such as swapping elements, generating random numbers, and calculating the maximum and minimum values, printing array.
+
+**Note :** This header is still under development and will be updated soon.
+
+```c
+
+#include "utility.h"
+
+int main() {
+    // Integer array
+    int int_arr[] = {1, 2, 3, 4, 5};
+    printf("Integer Array: ");
+    print_int_array(int_arr, 5);
+
+    // Float array
+    float float_arr[] = {1.1f, 2.2f, 3.3f, 4.4f, 5.5f};
+    printf("Float Array: ");
+    print_float_array(float_arr, 5);
+
+    // String array
+    char *str_arr[] = {"Hello", "World", "From", "C"};
+    printf("String Array: ");
+    print_string_array(str_arr, 4);
+
+    return 0;
+
+}
+```
+
+### Sorting Algorithms
+
+C-STL provides various sorting algorithms for arrays of integers, floats, and strings. These algorithms include quicksort, mergesort, bubblesort, and insertion sort.
+
+```c
+#include "sort.h" 
+
+int main() {
+    // Example usage of sorting functions
+
+    // Integer array
+    int int_arr[] = {5, 3, 1, 4, 2};
+    size_t n = sizeof(int_arr) / sizeof(int_arr[0]);
+
+    printf("Integer Array - Before Sorting: ");
+    print_int_array(int_arr, n);
+
+    bubble_sort(int_arr, n, sizeof(int), int_lesser);
+    printf("Integer Array - After Bubble Sort: ");
+    print_int_array(int_arr, n);
+
+    // Character array
+    char char_arr[] = {'e', 'd', 'b', 'a', 'c'};
+    n = sizeof(char_arr) / sizeof(char_arr[0]);
+
+    printf("Character Array - Before Sorting: ");
+    print_char_array(char_arr, n);
+
+    insertion_sort(char_arr, n, sizeof(char), char_lesser);
+    printf("Character Array - After Insertion Sort: ");
+    print_char_array(char_arr, n);
+
+    // Float array
+    float float_arr[] = {5.5f, 3.3f, 1.1f, 4.4f, 2.2f};
+    n = sizeof(float_arr) / sizeof(float_arr[0]);
+
+    printf("Float Array - Before Sorting: ");
+    print_float_array(float_arr, n);
+
+    merge_sort(float_arr, n, sizeof(float), float_lesser);
+    printf("Float Array - After Merge Sort: ");
+    print_float_array(float_arr, n);
+
+    // Double array
+    double double_arr[] = {5.55, 3.33, 1.11, 4.44, 2.22};
+    n = sizeof(double_arr) / sizeof(double_arr[0]);
+
+    printf("Double Array - Before Sorting: ");
+    print_double_array(double_arr, n);
+
+    quick_sort(double_arr, n, sizeof(double), double_lesser);
+    printf("Double Array - After Quick Sort: ");
+    print_double_array(double_arr, n);
+
+    // String array
+    char *str_arr[] = {"banana", "apple", "cherry", "date"};
+    n = sizeof(str_arr) / sizeof(str_arr[0]);
+
+    printf("String Array - Before Sorting: ");
+    print_string_array(str_arr, n);
+
+    selection_sort(str_arr, n, sizeof(char*), string_lesser);
+    printf("String Array - After Selection Sort: ");
+    print_string_array(str_arr, n);
+
+    return 0;
+}
+```
+
+// Comparison functions for all data types 
+
 ### Vector
 
 Vectors in C-STL are dynamic arrays that automatically resize as elements are added or removed. They provide an efficient way to manage collections of data with random access.
@@ -58,47 +165,53 @@ Vectors in C-STL are dynamic arrays that automatically resize as elements are ad
 ```c
 #include "vector.h"
 
+// Comparison function for integers
+int compare_int(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
 int main() {
+    // Initialize the vector with size for integer elements.
+    vector vec;
+    vector_init(&vec, sizeof(int));
 
-    // Before using a vector, you need to initialize it. This sets the initial size to 0 and the capacity to 4.
-    Vector vec;
-    vector_init(&vec);
+    // Add elements to the vector.
+    int value = 10;
+    vector_push_back(&vec, &value);
+    value = 20;
+    vector_push_back(&vec, &value);
 
-    // Add elements to the vector
-    vector_push_back(&vec, 10);
-    vector_push_back(&vec, 20);
+    // Access the first element of the vector.
+    int front = *(int*)vector_front(&vec);
 
-    // Front Element: Access the first element.
-    int front = vector_front(&vec);
+    // Remove the last element from the vector.
+    vector_pop_back(&vec);
 
-    // Pop Back: Remove the last element from the vector.
-    vector_int_pop_back(&vec);
+    // Access the last element of the vector.
+    int back = *(int*)vector_back(&vec);
 
-    // Back Element: Access the last element.
-    int back = vector_back(&vec);
+    // Access an element at a specific index (index 0 in this case).
+    int element = *(int*)vector_get(&vec, 0);
 
-    // Element by Index: Access an element at a specific index.
-    int value = vector_int_get(&vec, 2);
+    // Reverse the order of elements in the vector.
+    vector_reverse(&vec);
 
-    // Reverse the Vector: Reverse the order of elements in the vector.
-    vector_int_reverse(&vec);
+    // Get the number of elements in the vector.
+    size_t size = vector_size(&vec);
 
-    // Size: Get the number of elements in the vector.
-    size_t size = vector_int_size(&vec);
+    // Get the capacity of the vector.
+    size_t capacity = vector_capacity(&vec);
 
-    // Capacity: Get the capacity of the vector (the total number of elements it can hold before resizing).
-    size_t capacity = vector_int_capacity(&vec);
+    // Check if the vector is empty.
+    bool is_empty = vector_empty(&vec);
 
-    // Check if Empty: Check if the vector is empty.
-    bool is_empty = vector_int_empty(&vec);
+    // Find the index of an element (value 20). Returns -1 if not found.
+    size_t index = vector_find(&vec, &value, compare_int);
 
-    // Find an Element: Find the index of an element. Returns -1 if the element is not found.
-    int index = vector_int_find(&vec, 20);
+    // Clear all elements from the vector, but retain its capacity.
+    vector_clear(&vec);
 
-    // Clear: Remove all elements from the vector, but retain its capacity.
-    vector_int_clear(&vec);
-
-    // Free: Free the memory allocated to the vector.
+    // Free the memory allocated for the vector.
     vector_free(&vec);
 
     return 0;
@@ -112,22 +225,74 @@ C-STL's linked list implementation supports both singly and doubly linked lists,
 ```c
 #include "list.h"
 
+// Free function for integer data
+void free_int(void *data) {
+    // In this case, no action is needed since we are not allocating memory for integers.
+    // This function is provided to match the function signature expected by the list functions.
+}
+
 int main() {
-    List list;
-    list_init(&list);
+    // Initialize singly linked list with integer elements
+    SinglyLinkedList s_list;
+    singly_list_init(&s_list, sizeof(int));
 
-    // Add elements to the list
-    list_push_back(&list, 10);
-    list_push_front(&list, 20);
+    // Add elements to the singly linked list
+    int value = 10;
+    singly_list_insert(&s_list, 0, &value);
+    value = 20;
+    singly_list_insert(&s_list, 1, &value);
 
-    // Iterate over the list
-    ListNode *node = list.head;
-    while (node != NULL) {
-        printf("%d\n", node->data);
-        node = node->next;
-    }
+    // Get an element at a specific index (index 0 in this case)
+    int *element = (int*)singly_list_get(&s_list, 0);
+    printf("Singly Linked List - Element at index 0: %d\n", *element);
 
-    list_free(&list);
+    // Remove an element from the singly linked list
+    singly_list_remove(&s_list, 1, free_int);
+
+    // Check if the singly linked list is empty
+    bool is_empty = singly_list_empty(&s_list);
+    printf("Singly Linked List - Is Empty: %s\n", is_empty ? "Yes" : "No");
+
+    // Get the size of the singly linked list
+    size_t size = singly_list_size(&s_list);
+    printf("Singly Linked List - Size: %zu\n", size);
+
+    // Clear all elements from the singly linked list
+    singly_list_clear(&s_list, free_int);
+
+    // Free the singly linked list
+    singly_list_free(&s_list, free_int);
+
+    // Initialize doubly linked list with integer elements
+    DoublyLinkedList d_list;
+    doubly_list_init(&d_list, sizeof(int));
+
+    // Add elements to the doubly linked list
+    value = 30;
+    doubly_list_insert(&d_list, 0, &value);
+    value = 40;
+    doubly_list_insert(&d_list, 1, &value);
+
+    // Get an element at a specific index (index 0 in this case)
+    element = (int*)doubly_list_get(&d_list, 0);
+    printf("Doubly Linked List - Element at index 0: %d\n", *element);
+
+    // Remove an element from the doubly linked list
+    doubly_list_remove(&d_list, 1, free_int);
+
+    // Check if the doubly linked list is empty
+    is_empty = doubly_list_empty(&d_list);
+    printf("Doubly Linked List - Is Empty: %s\n", is_empty ? "Yes" : "No");
+
+    // Get the size of the doubly linked list
+    size = doubly_list_size(&d_list);
+    printf("Doubly Linked List - Size: %zu\n", size);
+
+    // Clear all elements from the doubly linked list
+    doubly_list_clear(&d_list, free_int);
+
+    // Free the doubly linked list
+    doubly_list_free(&d_list, free_int);
     return 0;
 }
 ```
@@ -139,18 +304,39 @@ Stacks in C-STL provide a LIFO (Last In, First Out) structure, useful for scenar
 ```c
 #include "stack.h"
 
+// Free function for integer data
+void free_int(void *data) {
+    // In this case, no action is needed since we are not allocating memory for integers.
+    // This function is provided to match the function signature expected by the stack functions.
+}
+
 int main() {
     Stack stack;
-    stack_init(&stack);
+    stack_init(&stack, sizeof(int));
 
     // Push elements onto the stack
-    stack_push(&stack, 10);
-    stack_push(&stack, 20);
+    int value = 10;
+    stack_push(&stack, &value);
+    value = 20;
+    stack_push(&stack, &value);
+
+    // Access the top element of the stack
+    int *top = (int*)stack_top(&stack);
+    printf("Stack - Top Element: %d\n", *top);
 
     // Pop an element from the stack
-    int top = stack_pop(&stack);
+    stack_pop(&stack, free_int);
 
-    stack_free(&stack);
+    // Check if the stack is empty
+    bool is_empty = stack_empty(&stack);
+    printf("Stack - Is Empty: %s\n", is_empty ? "Yes" : "No");
+
+    // Get the size of the stack
+    size_t size = stack_size(&stack);
+    printf("Stack - Size: %zu\n", size);
+
+    // Free the stack
+    stack_free(&stack, free_int);
     return 0;
 }
 ```
@@ -162,25 +348,185 @@ Queues in C-STL implement a FIFO (First In, First Out) data structure, suitable 
 ```c
 #include "queue.h"
 
+// Free function for integer data
+void free_int(void *data) {
+    // In this case, no action is needed since we are not allocating memory for integers.
+    // This function is provided to match the function signature expected by the queue and deque functions.
+}
+
 int main() {
+    // Initialize the queue with integer elements
     Queue queue;
-    queue_init(&queue);
+    queue_init(&queue, sizeof(int));
 
-    // Enqueue elements
-    queue_enqueue(&queue, 10);
-    queue_enqueue(&queue, 20);
+    // Enqueue elements into the queue
+    int value = 10;
+    queue_enqueue(&queue, &value);
+    value = 20;
+    queue_enqueue(&queue, &value);
 
-    // Dequeue an element
-    int front = queue_dequeue(&queue);
+    // Access the front element of the queue
+    int *front = (int*)queue_front(&queue);
+    printf("Queue - Front Element: %d\n", *front);
 
-    queue_free(&queue);
+    // Dequeue an element from the queue
+    queue_dequeue(&queue, free_int);
+
+    // Check if the queue is empty
+    bool is_empty = queue_empty(&queue);
+    printf("Queue - Is Empty: %s\n", is_empty ? "Yes" : "No");
+
+    // Get the size of the queue
+    size_t size = queue_size(&queue);
+    printf("Queue - Size: %zu\n", size);
+
+    // Free the queue
+    queue_free(&queue, free_int);
+
+    // Initialize the deque with integer elements
+    Deque deque;
+    deque_init(&deque, sizeof(int));
+
+    // Push elements to the front and back of the deque
+    value = 30;
+    deque_push_front(&deque, &value);
+    value = 40;
+    deque_push_back(&deque, &value);
+
+    // Access the front and back elements of the deque
+    int *front_elem = (int*)deque_front(&deque);
+    int *back_elem = (int*)deque_back(&deque);
+    printf("Deque - Front Element: %d\n", *front_elem);
+    printf("Deque - Back Element: %d\n", *back_elem);
+
+    // Pop elements from the front and back of the deque
+    deque_pop_front(&deque, free_int);
+    deque_pop_back(&deque, free_int);
+
+    // Check if the deque is empty
+    is_empty = deque_empty(&deque);
+    printf("Deque - Is Empty: %s\n", is_empty ? "Yes" : "No");
+
+    // Get the size of the deque
+    size = deque_size(&deque);
+    printf("Deque - Size: %zu\n", size);
+
+    // Free the deque
+    deque_free(&deque, free_int);
+    return 0;
+}
+```
+
+### Priority Queue
+
+Priority queues in C-STL allow you to manage elements based on their priority levels, using a heap data structure for efficient operations.
+
+```c
+#include "priority_queue.h"
+
+// Your can use Comparison function for all datatypes that are present in sort.h for min-heaps
+
+int main() {
+    // Initialize the priority queue with integer elements and a comparison function
+    priority_queue pq;
+    priority_queue_init(&pq, sizeof(int), compare_int);
+
+    // Push elements into the priority queue
+    int value = 10;
+    priority_queue_push(&pq, &value);
+    value = 20;
+    priority_queue_push(&pq, &value);
+    value = 15;
+    priority_queue_push(&pq, &value);
+
+    // Access the top element of the priority queue (highest priority)
+    int *top = (int*)priority_queue_top(&pq);
+    printf("Priority Queue - Top Element: %d\n", *top);
+
+    // Pop the top element from the priority queue
+    priority_queue_pop(&pq);
+
+    // Access the new top element of the priority queue
+    top = (int*)priority_queue_top(&pq);
+    printf("Priority Queue - New Top Element: %d\n", *top);
+
+    // Check if the priority queue is empty
+    bool is_empty = priority_queue_empty(&pq);
+    printf("Priority Queue - Is Empty: %s\n", is_empty ? "Yes" : "No");
+
+    // Free the priority queue
+    priority_queue_free(&pq);
+
+    return 0;
+}
+```
+
+### Set
+
+Sets in C-STL allow you to store unique elements .
+
+**Note :** This header is still under development and will be updated soon.
+
+```c
+#include "set.h"
+
+// Comparison function for integers
+int compare_int(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+// Destroy function for integers
+void destroy_int(void *data) {
+    // No special action needed for int
+}
+
+int main() {
+    // Create a set of integers
+    Set *set = set_create(compare_int, destroy_int, sizeof(int));
+
+    int values[] = {10, 20, 30, 40, 50};
+    size_t num_values = sizeof(values) / sizeof(values[0]);
+
+    // Insert values into the set
+    for (size_t i = 0; i < num_values; ++i) {
+        set_insert(set, &values[i]);
+    }
+
+    // Check if certain values are in the set
+    int value_to_check = 30;
+    if (set_contains(set, &value_to_check)) {
+        printf("%d is in the set.\n", value_to_check);
+    } else {
+        printf("%d is not in the set.\n", value_to_check);
+    }
+
+    // Remove a value from the set
+    int value_to_remove = 20;
+    set_remove(set, &value_to_remove);
+
+    // Check if the removed value is still in the set
+    if (set_contains(set, &value_to_remove)) {
+        printf("%d is in the set.\n", value_to_remove);
+    } else {
+        printf("%d is not in the set.\n", value_to_remove);
+    }
+
+    // Get the size of the set
+    size_t size = set_size(set);
+    printf("The set size is %zu.\n", size);
+
+    // Destroy the set
+    set_destroy(set);
+
     return 0;
 }
 ```
 
 ### Map
 
-Maps (associative arrays) in C-STL allow you to store and retrieve key-value pairs efficiently. **(Note: Implementation in progress)**
+Maps (associative arrays) in C-STL allow you to store and retrieve key-value pairs efficiently.
+
+**Note :** This header is still under development and will be updated soon.
 
 ```c
 #include "map.h"
@@ -200,63 +546,6 @@ int main() {
     return 0;
 }
 ```
-
-## Examples
-
-Here are some example programs that demonstrate the usage of the C-STL library:
-
-- **Sorting a Vector**:
-  ```c
-  #include "vector.h"
-  #include "sort.h"
-
-  int main() {
-      Vector vec;
-      vector_init(&vec);
-
-      vector_push_back(&vec, 3);
-      vector_push_back(&vec, 1);
-      vector_push_back(&vec, 2);
-
-      quicksort(&vec);
-
-      vector_free(&vec);
-      return 0;
-  }
-  ```
-
-- **Using a Stack for Expression Evaluation**:
-  ```c
-  #include "stack.h"
-
-  int evaluate_expression(const char* expr);
-
-  int main() {
-      const char* expr = "3 4 + 2 * 7 /";
-      int result = evaluate_expression(expr);
-
-      printf("Result: %d\n", result);
-      return 0;
-  }
-  ```
-
-- **Priority Queue for Task Scheduling**:
-  ```c
-  #include "priority_queue.h"
-
-  int main() {
-      PriorityQueue pq;
-      priority_queue_init(&pq);
-
-      priority_queue_push(&pq, 1, "Task 1");
-      priority_queue_push(&pq, 2, "Task 2");
-
-      char* task = priority_queue_pop(&pq);
-
-      priority_queue_free(&pq);
-      return 0;
-  }
-  ```
 
 ## License
 

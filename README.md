@@ -57,7 +57,7 @@ To install and use the C-STL library, follow these steps:
 
    ```sh
    mkdir output
-   gcc -o output/output_name implementation/header_needed.c
+   gcc -o output/{output_name} implementation/{header_needed}.c
    ar rcs lib_mylib.a output/*
    gcc -o output main.c -L. lib_mylib.a
     ./output

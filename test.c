@@ -42,7 +42,7 @@ void print_test_result(const char *test_name, bool passed) {
 int main() {
 
     // --------------------------------------- Test sorting algorithms ---------------------------------------
-    /*
+    
     int int_arr[] = {4, 2, 5, 1, 3};
     size_t int_n = sizeof(int_arr) / sizeof(int_arr[0]);
     bubble_sort(int_arr, int_n, sizeof(int), int_lesser);
@@ -76,10 +76,9 @@ int main() {
     quick_sort(string_arr, string_n, sizeof(char *), string_greater);
     printf("Sorted string array (quick_sort, string_lesser): ");
     print_string_array(string_arr, string_n);
-    */
 
     // --------------------------------------- Test vector operations ---------------------------------------
-    /*
+    
     vector int_vector;
     vector_init(&int_vector, sizeof(int));
     int int_values[] = {10, 20, 30, 40, 50};
@@ -216,10 +215,9 @@ int main() {
 
     // Free the string vector
     vector_free(&string_vector);
-    */
 
     // --------------------------------------- Test List operations -----------------------------------------
-    /*
+    
     SinglyLinkedList s_list_int;
     singly_list_init(&s_list_int, sizeof(int));
 
@@ -373,10 +371,9 @@ int main() {
     printf("\n");
 
     doubly_list_free(&d_list_str, free_string);
-    */
 
     // --------------------------------------- Test Stack operations -----------------------------------------
-    /*
+    
     // Test stack with integers
     Stack int_stack;
     stack_init(&int_stack, sizeof(int));
@@ -417,10 +414,9 @@ int main() {
     printf("String stack top after pop: %s\n", *(char **)stack_top(&string_stack));
     printf("String stack size: %zu\n", stack_size(&string_stack));
     stack_free(&string_stack, free_string);
-    */
 
     // --------------------------------------- Test Queue operations -----------------------------------------
-    /*
+    
     // // Testing queue with integers
     // Queue queue;
     // queue_init(&queue, sizeof(int));
@@ -511,10 +507,9 @@ int main() {
     // printf("Front after pop: %s\n", *(char **)deque_front(&deque));
     // printf("Deque size: %zu\n", deque_size(&deque));
     // deque_free(&deque, free_string);
-    */
 
     // ----------------------------------- Test Priority Queue operations ------------------------------------
-    /*
+    
     // Test priority queue with integers
     priority_queue pq;
     priority_queue_init(&pq, sizeof(int), int_lesser);
@@ -561,10 +556,9 @@ int main() {
     free_string(&a);
     free_string(&b);
     free_string(&c);
-    */
 
     // ---------------------------------------- Test Set operations ------------------------------------------
-    /*
+    
     // Test set with integers
     Set* int_set = set_create(int_compare, NULL, sizeof(int));
     int nums[] = {5, 3, 7, 1, 4, 9};
@@ -619,10 +613,9 @@ int main() {
         printf("%s has been removed from the set.\n", search_word);
     }
     free(search_word);
-    */
 
     // ----------------------------------------- Test Map operations -----------------------------------------
-    /*
+    
     // Test with integers
     HashMap *int_map = hashmap_create(10, sizeof(int), sizeof(int), int_hash, int_compare);
     int key1 = 5, value1 = 100;
@@ -672,6 +665,5 @@ int main() {
     print_test_result("Test Get Key2", result2 && *result2 == value2);
     print_test_result("Test Get Key3", result3 && *result3 == value3);
     hashmap_destroy(float_map);
-    */
     return 0;
 }

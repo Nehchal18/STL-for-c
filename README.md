@@ -53,6 +53,13 @@ To install and use the C-STL library, follow these steps:
    - Compile the program with the library source files linking to the static library file.
    - Run the compiled executable to see the output.
 
+3. **Compile and Run Example Programs**:
+
+   ```sh
+   gcc -o output main.c -L. lib_mylib.a
+    ./output
+    ```
+
 ## Usage
 
 ### Utility Functions

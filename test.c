@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include "./headers/vector.h"
-#include "./headers/sort.h"
-#include "./headers/utils.h"
-#include "./headers/list.h"
-#include "./headers/stack.h"
-#include "./headers/queue.h"
-#include "./headers/priority_queue.h"
-#include "./headers/set.h"
-#include "./headers/map.h"
+#include "./headers/everything.h"
 
 int int_compare(const void* a, const void* b) {
     return (*(int*)a - *(int*)b);
@@ -631,41 +622,41 @@ int main() {
     */
 
     // ----------------------------------------- Test Map operations -----------------------------------------
-    // /*
-    // // Test with integers
-    // HashMap *int_map = hashmap_create(10, sizeof(int), sizeof(int), int_hash, int_compare);
-    // int key1 = 5, value1 = 100;
-    // int key2 = 10, value2 = 200;
-    // int key3 = 15, value3 = 300;
-    // hashmap_insert(int_map, &key1, &value1);
-    // hashmap_insert(int_map, &key2, &value2);
-    // hashmap_insert(int_map, &key3, &value3);
-    // int *result1 = (int *)hashmap_get(int_map, &key1);
-    // int *result2 = (int *)hashmap_get(int_map, &key2);
-    // int *result3 = (int *)hashmap_get(int_map, &key3);
-    // print_test_result("Test Get Key1", result1 && *result1 == value1);
-    // print_test_result("Test Get Key2", result2 && *result2 == value2);
-    // print_test_result("Test Get Key3", result3 && *result3 == value3);
-    // hashmap_destroy(int_map);
+    /*
+    // Test with integers
+    HashMap *int_map = hashmap_create(10, sizeof(int), sizeof(int), int_hash, int_compare);
+    int key1 = 5, value1 = 100;
+    int key2 = 10, value2 = 200;
+    int key3 = 15, value3 = 300;
+    hashmap_insert(int_map, &key1, &value1);
+    hashmap_insert(int_map, &key2, &value2);
+    hashmap_insert(int_map, &key3, &value3);
+    int *result1 = (int *)hashmap_get(int_map, &key1);
+    int *result2 = (int *)hashmap_get(int_map, &key2);
+    int *result3 = (int *)hashmap_get(int_map, &key3);
+    print_test_result("Test Get Key1", result1 && *result1 == value1);
+    print_test_result("Test Get Key2", result2 && *result2 == value2);
+    print_test_result("Test Get Key3", result3 && *result3 == value3);
+    hashmap_destroy(int_map);
 
-    // Test with strings
-    // HashMap *str_map = hashmap_create(10, sizeof(char *), sizeof(int), string_hash, string_compare);
-    // char *key1 = "apple";
-    // char *key2 = "banana";
-    // char *key3 = "cherry";
-    // int value1 = 100;
-    // int value2 = 200;
-    // int value3 = 300;
-    // hashmap_insert(str_map, &key1, &value1);
-    // hashmap_insert(str_map, &key2, &value2);
-    // hashmap_insert(str_map, &key3, &value3);
-    // int *result1 = (int *)hashmap_get(str_map, &key1);
-    // int *result2 = (int *)hashmap_get(str_map, &key2);
-    // int *result3 = (int *)hashmap_get(str_map, &key3);
-    // print_test_result("Test Get Key1", result1 && *result1 == value1);
-    // print_test_result("Test Get Key2", result2 && *result2 == value2);
-    // print_test_result("Test Get Key3", result3 && *result3 == value3);
-    // hashmap_destroy(str_map);
+    Test with strings
+    HashMap *str_map = hashmap_create(10, sizeof(char *), sizeof(int), string_hash, string_compare);
+    char *key1 = "apple";
+    char *key2 = "banana";
+    char *key3 = "cherry";
+    int value1 = 100;
+    int value2 = 200;
+    int value3 = 300;
+    hashmap_insert(str_map, &key1, &value1);
+    hashmap_insert(str_map, &key2, &value2);
+    hashmap_insert(str_map, &key3, &value3);
+    int *result1 = (int *)hashmap_get(str_map, &key1);
+    int *result2 = (int *)hashmap_get(str_map, &key2);
+    int *result3 = (int *)hashmap_get(str_map, &key3);
+    print_test_result("Test Get Key1", result1 && *result1 == value1);
+    print_test_result("Test Get Key2", result2 && *result2 == value2);
+    print_test_result("Test Get Key3", result3 && *result3 == value3);
+    hashmap_destroy(str_map);
 
     // Test with floats
     HashMap *float_map = hashmap_create(10, sizeof(float), sizeof(int), float_hash, float_compare);
@@ -681,6 +672,6 @@ int main() {
     print_test_result("Test Get Key2", result2 && *result2 == value2);
     print_test_result("Test Get Key3", result3 && *result3 == value3);
     hashmap_destroy(float_map);
-    // */
+    */
     return 0;
 }

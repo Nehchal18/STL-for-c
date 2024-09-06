@@ -9,7 +9,7 @@
 
 typedef struct {
     SinglyLinkedList list;
-} Stack;
+} Stack; 
 
 void stack_init(Stack *stack, size_t elem_size);
 void stack_free(Stack *stack, void (*free_func)(void *));

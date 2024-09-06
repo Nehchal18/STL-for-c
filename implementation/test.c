@@ -5,16 +5,20 @@
 #include "list.h"
 #include "stack.h"
 #include "queue.h"
+#include "priority_queue.h"
+#include "set.h"
 
-int compare_int(const void *a, const void *b) {
-    return *(int*)a == *(int*)b ? 0 : 1;
+int int_compare(const void* a, const void* b) {
+    return (*(int*)a - *(int*)b);
 }
 
-int compare_float(const void *a, const void *b) {
-    return *(float*)a == *(float*)b ? 0 : 1;
+int float_compare(const void* a, const void* b) {
+    if (*(float*)a < *(float*)b) return -1;
+    else if (*(float*)a > *(float*)b) return 1;
+    return 0;
 }
 
-int compare_string(const void *a, const void *b) {
+int string_compare(const void* a, const void* b) {
     return strcmp(*(const char**)a, *(const char**)b);
 }
 
@@ -32,6 +36,11 @@ void print_string(void *data) {
 
 void free_string(void *data) {
     free(*(char **)data);
+}
+
+void destroy_string(void *data) {
+    // if(!data) return;
+    free(data);  // Directly free the void* which points to the string
 }
 
 int main() {
@@ -122,7 +131,7 @@ int main() {
 
     // Test find function
     int search_int = 20;
-    size_t index = vector_find(&int_vector, &search_int, compare_int);
+    size_t index = vector_find(&int_vector, &search_int, int_compare);
     if (index != (size_t)-1) {
         printf("Found %d at index %zu in the integer vector.\n", search_int, index);
     } else {
@@ -160,7 +169,7 @@ int main() {
 
     // Test find function
     float search_float = 3.3;
-    index = vector_find(&float_vector, &search_float, compare_float);
+    index = vector_find(&float_vector, &search_float, float_compare);
     if (index != (size_t)-1) {
         printf("Found %f at index %zu in the float vector.\n", search_float, index);
     } else {
@@ -198,7 +207,7 @@ int main() {
 
     // Test find function
     char *search_string = "banana";
-    index = vector_find(&string_vector, &search_string, compare_string);
+    index = vector_find(&string_vector, &search_string, string_compare);
     if (index != (size_t)-1) {
         printf("Found %s at index %zu in the string vector.\n", search_string, index);
     } else {
@@ -415,8 +424,8 @@ int main() {
     */
 
     // --------------------------------------- Test Queue operations -----------------------------------------
-    // /*
-    // Testing queue with integers
+    /*
+    // // Testing queue with integers
     // Queue queue;
     // queue_init(&queue, sizeof(int));
     // int a = 10, b = 20, c = 30;
@@ -429,8 +438,8 @@ int main() {
     // printf("Front after dequeue: %d\n", *(int *)queue_front(&queue));
     // printf("Queue size: %zu\n", queue_size(&queue));
     // queue_free(&queue, NULL);
-
-    // Testing queue with floats
+    
+    // // Testing queue with floats
     // Queue queue;
     // queue_init(&queue, sizeof(float));
     // float a = 1.1, b = 2.2, c = 3.3;
@@ -443,8 +452,8 @@ int main() {
     // printf("Front after dequeue: %.1f\n", *(float *)queue_front(&queue));
     // printf("Queue size: %zu\n", queue_size(&queue));
     // queue_free(&queue, NULL);
-
-    // Testing queue with strings
+    
+    // // Testing queue with strings
     // Queue queue;
     // queue_init(&queue, sizeof(char *));
     // char *a = strdup("Apple");
@@ -459,8 +468,8 @@ int main() {
     // printf("Front after dequeue: %s\n", *(char **)queue_front(&queue));
     // printf("Queue size: %zu\n", queue_size(&queue));
     // queue_free(&queue, free_string);
-
-    // Testing deque with integers
+    
+    // // Testing deque with integers
     // Deque deque;
     // deque_init(&deque, sizeof(int));
     // int a = 10, b = 20, c = 30;
@@ -474,8 +483,8 @@ int main() {
     // printf("Front after pop: %d\n", *(int *)deque_front(&deque));
     // printf("Deque size: %zu\n", deque_size(&deque));
     // deque_free(&deque, NULL);
-
-    // Testing deque with floats
+    
+    // // Testing deque with floats
     // Deque deque;
     // deque_init(&deque, sizeof(float));
     // float a = 1.1, b = 2.2, c = 3.3;
@@ -489,8 +498,8 @@ int main() {
     // printf("Front after pop: %.1f\n", *(float *)deque_front(&deque));
     // printf("Deque size: %zu\n", deque_size(&deque));
     // deque_free(&deque, NULL);
-
-    // Testing deque with strings
+    
+    // // Testing deque with strings
     // Deque deque;
     // deque_init(&deque, sizeof(char *));
     // char *a = strdup("First");
@@ -506,7 +515,132 @@ int main() {
     // printf("Front after pop: %s\n", *(char **)deque_front(&deque));
     // printf("Deque size: %zu\n", deque_size(&deque));
     // deque_free(&deque, free_string);
-    // */
+    */
 
+    // ----------------------------------- Test Priority Queue operations ------------------------------------
+    /*
+    // Test priority queue with integers
+    priority_queue pq;
+    priority_queue_init(&pq, sizeof(int), int_lesser);
+    int a = 10, b = 20, c = 15;
+    printf("\n--- Testing Integer Priority Queue ---\n");
+    priority_queue_push(&pq, &a);
+    priority_queue_push(&pq, &b);
+    priority_queue_push(&pq, &c);
+    printf("Top of priority queue: %d\n", *(int*)priority_queue_top(&pq));
+    priority_queue_pop(&pq);
+    printf("Top after pop: %d\n", *(int*)priority_queue_top(&pq));
+    printf("Priority queue is empty: %s\n", priority_queue_empty(&pq) ? "true" : "false");
+    priority_queue_free(&pq);
+
+    // Test priority queue with floats
+    priority_queue pq;
+    priority_queue_init(&pq, sizeof(float), float_greater);
+    float a = 1.1, b = 2.2, c = 1.5;
+    printf("\n--- Testing Float Priority Queue ---\n");
+    priority_queue_push(&pq, &a);
+    priority_queue_push(&pq, &b);
+    priority_queue_push(&pq, &c);
+    printf("Top of priority queue: %.1f\n", *(float*)priority_queue_top(&pq));
+    priority_queue_pop(&pq);
+    printf("Top after pop: %.1f\n", *(float*)priority_queue_top(&pq));
+    printf("Priority queue is empty: %s\n", priority_queue_empty(&pq) ? "true" : "false");
+    priority_queue_free(&pq);
+
+    // Test priority queue with strings
+    priority_queue pq;
+    priority_queue_init(&pq, sizeof(char*), string_lesser);
+    char *a = strdup("Banana");
+    char *b = strdup("Apple");
+    char *c = strdup("Cherry");
+    printf("\n--- Testing String Priority Queue ---\n");
+    priority_queue_push(&pq, &a);
+    priority_queue_push(&pq, &b);
+    priority_queue_push(&pq, &c);
+    printf("Top of priority queue: %s\n", *(char**)priority_queue_top(&pq));
+    priority_queue_pop(&pq);
+    printf("Top after pop: %s\n", *(char**)priority_queue_top(&pq));
+    printf("Priority queue is empty: %s\n", priority_queue_empty(&pq) ? "true" : "false");
+    priority_queue_free(&pq);
+    free_string(&a);
+    free_string(&b);
+    free_string(&c);
+    */
+
+    // ---------------------------------------- Test Set operations ------------------------------------------
+    // /*
+    // // Test set with integers
+    // Set* int_set = set_create(int_compare, NULL, sizeof(int));
+    // int nums[] = {5, 3, 7, 1, 4, 9};
+    // for (int i = 0; i < 6; ++i) {
+    //     set_insert(int_set, &nums[i]);
+    // }
+    // int val = 3;
+    // if (set_contains(int_set, &val)) {
+    //     printf("%d is in the set.\n", val);
+    // }
+    // set_remove(int_set, &val);
+    // if (!set_contains(int_set, &val)) {
+    //     printf("%d has been removed from the set.\n", val);
+    // }
+    // if (!set_contains(int_set, &val)) {
+    //     printf("%d is not in the set.\n", val);
+    // }
+    // set_destroy(int_set);
+
+    // // Test set with floats
+    // Set* float_set = set_create(float_compare, NULL, sizeof(float));
+    // float nums[] = {5.5, 3.1, 7.2, 1.9, 4.4, 9.8};
+    // for (int i = 0; i < 6; ++i) {
+    //     set_insert(float_set, &nums[i]);
+    // }
+    // float val = 3.1;
+    // if (set_contains(float_set, &val)) {
+    //     printf("%.1f is in the set.\n", val);
+    // }
+    // set_remove(float_set, &val);
+    // if (!set_contains(float_set, &val)) {
+    //     printf("%.1f has been removed from the set.\n", val);
+    // }
+    // if (!set_contains(float_set, &val)) {
+    //     printf("%.1f is in not the set.\n", val);
+    // }
+    // set_destroy(float_set);
+
+    // Test set with strings
+    printf("1");
+    Set* string_set = set_create(string_compare, free_string, sizeof(char));
+
+    char* words[] = {"apple", "banana", "cherry", "date", "fig", "grape"};
+    // char* word_copies[6];
+    printf("2");
+
+    // Insert duplicated strings into the set
+    for (int i = 0; i < 6; ++i) {
+        // word_copies[i] = strdup(words[i]);  // Duplicate the string
+        set_insert(string_set, words[i]);  // Insert the duplicated string
+    }
+
+    // Now create a dynamically allocated copy for search_word
+    char* search_word = strdup("banana");
+
+    // Now use consistent comparison: pass the string pointer itself
+    if (set_contains(string_set, search_word)) {
+        printf("%s is in the set.\n", search_word);
+    }
+
+    // Remove the dynamically allocated string
+    set_remove(string_set, search_word);
+
+    if (!set_contains(string_set, search_word)) {
+        printf("%s has been removed from the set.\n", search_word);
+    }
+
+    // Free the search_word, since it was dynamically allocated
+    free(search_word);
+
+    // Destroy the set (free memory for all remaining strings)
+    set_destroy(string_set);
+    // */
     return 0;
 }

@@ -7,6 +7,7 @@
 #include "./headers/queue.h"
 #include "./headers/priority_queue.h"
 #include "./headers/set.h"
+#include "./headers/map.h"
 
 int int_compare(const void* a, const void* b) {
     return (*(int*)a - *(int*)b);
@@ -41,6 +42,10 @@ void free_string(void *data) {
 void destroy_string(void *data) {
     // if(!data) return;
     free(data);  // Directly free the void* which points to the string
+}
+
+void print_test_result(const char *test_name, bool passed) {
+    printf("%s: %s\n", test_name, passed ? "PASSED" : "FAILED");
 }
 
 int main() {
@@ -568,44 +573,44 @@ int main() {
     */
 
     // ---------------------------------------- Test Set operations ------------------------------------------
-    // /*
-    // // Test set with integers
-    // Set* int_set = set_create(int_compare, NULL, sizeof(int));
-    // int nums[] = {5, 3, 7, 1, 4, 9};
-    // for (int i = 0; i < 6; ++i) {
-    //     set_insert(int_set, &nums[i]);
-    // }
-    // int val = 3;
-    // if (set_contains(int_set, &val)) {
-    //     printf("%d is in the set.\n", val);
-    // }
-    // set_remove(int_set, &val);
-    // if (!set_contains(int_set, &val)) {
-    //     printf("%d has been removed from the set.\n", val);
-    // }
-    // if (!set_contains(int_set, &val)) {
-    //     printf("%d is not in the set.\n", val);
-    // }
-    // set_destroy(int_set);
+    /*
+    // Test set with integers
+    Set* int_set = set_create(int_compare, NULL, sizeof(int));
+    int nums[] = {5, 3, 7, 1, 4, 9};
+    for (int i = 0; i < 6; ++i) {
+        set_insert(int_set, &nums[i]);
+    }
+    int val = 3;
+    if (set_contains(int_set, &val)) {
+        printf("%d is in the set.\n", val);
+    }
+    set_remove(int_set, &val);
+    if (!set_contains(int_set, &val)) {
+        printf("%d has been removed from the set.\n", val);
+    }
+    if (!set_contains(int_set, &val)) {
+        printf("%d is not in the set.\n", val);
+    }
+    set_destroy(int_set);
 
-    // // Test set with floats
-    // Set* float_set = set_create(float_compare, NULL, sizeof(float));
-    // float nums[] = {5.5, 3.1, 7.2, 1.9, 4.4, 9.8};
-    // for (int i = 0; i < 6; ++i) {
-    //     set_insert(float_set, &nums[i]);
-    // }
-    // float val = 3.1;
-    // if (set_contains(float_set, &val)) {
-    //     printf("%.1f is in the set.\n", val);
-    // }
-    // set_remove(float_set, &val);
-    // if (!set_contains(float_set, &val)) {
-    //     printf("%.1f has been removed from the set.\n", val);
-    // }
-    // if (!set_contains(float_set, &val)) {
-    //     printf("%.1f is in not the set.\n", val);
-    // }
-    // set_destroy(float_set);
+    // Test set with floats
+    Set* float_set = set_create(float_compare, NULL, sizeof(float));
+    float nums[] = {5.5, 3.1, 7.2, 1.9, 4.4, 9.8};
+    for (int i = 0; i < 6; ++i) {
+        set_insert(float_set, &nums[i]);
+    }
+    float val = 3.1;
+    if (set_contains(float_set, &val)) {
+        printf("%.1f is in the set.\n", val);
+    }
+    set_remove(float_set, &val);
+    if (!set_contains(float_set, &val)) {
+        printf("%.1f has been removed from the set.\n", val);
+    }
+    if (!set_contains(float_set, &val)) {
+        printf("%.1f is in not the set.\n", val);
+    }
+    set_destroy(float_set);
 
     // Test set with strings
     Set* string_set = set_create(string_compare, free_string, sizeof(char*));
@@ -623,7 +628,59 @@ int main() {
         printf("%s has been removed from the set.\n", search_word);
     }
     free(search_word);
+    */
 
+    // ----------------------------------------- Test Map operations -----------------------------------------
+    // /*
+    // // Test with integers
+    // HashMap *int_map = hashmap_create(10, sizeof(int), sizeof(int), int_hash, int_compare);
+    // int key1 = 5, value1 = 100;
+    // int key2 = 10, value2 = 200;
+    // int key3 = 15, value3 = 300;
+    // hashmap_insert(int_map, &key1, &value1);
+    // hashmap_insert(int_map, &key2, &value2);
+    // hashmap_insert(int_map, &key3, &value3);
+    // int *result1 = (int *)hashmap_get(int_map, &key1);
+    // int *result2 = (int *)hashmap_get(int_map, &key2);
+    // int *result3 = (int *)hashmap_get(int_map, &key3);
+    // print_test_result("Test Get Key1", result1 && *result1 == value1);
+    // print_test_result("Test Get Key2", result2 && *result2 == value2);
+    // print_test_result("Test Get Key3", result3 && *result3 == value3);
+    // hashmap_destroy(int_map);
+
+    // Test with strings
+    // HashMap *str_map = hashmap_create(10, sizeof(char *), sizeof(int), string_hash, string_compare);
+    // char *key1 = "apple";
+    // char *key2 = "banana";
+    // char *key3 = "cherry";
+    // int value1 = 100;
+    // int value2 = 200;
+    // int value3 = 300;
+    // hashmap_insert(str_map, &key1, &value1);
+    // hashmap_insert(str_map, &key2, &value2);
+    // hashmap_insert(str_map, &key3, &value3);
+    // int *result1 = (int *)hashmap_get(str_map, &key1);
+    // int *result2 = (int *)hashmap_get(str_map, &key2);
+    // int *result3 = (int *)hashmap_get(str_map, &key3);
+    // print_test_result("Test Get Key1", result1 && *result1 == value1);
+    // print_test_result("Test Get Key2", result2 && *result2 == value2);
+    // print_test_result("Test Get Key3", result3 && *result3 == value3);
+    // hashmap_destroy(str_map);
+
+    // Test with floats
+    HashMap *float_map = hashmap_create(10, sizeof(float), sizeof(int), float_hash, float_compare);
+    float key1 = 3.14, key2 = 2.71, key3 = 1.41;
+    int value1 = 100, value2 = 200, value3 = 300;
+    hashmap_insert(float_map, &key1, &value1);
+    hashmap_insert(float_map, &key2, &value2);
+    hashmap_insert(float_map, &key3, &value3);
+    int *result1 = (int *)hashmap_get(float_map, &key1);
+    int *result2 = (int *)hashmap_get(float_map, &key2);
+    int *result3 = (int *)hashmap_get(float_map, &key3);
+    print_test_result("Test Get Key1", result1 && *result1 == value1);
+    print_test_result("Test Get Key2", result2 && *result2 == value2);
+    print_test_result("Test Get Key3", result3 && *result3 == value3);
+    hashmap_destroy(float_map);
     // */
     return 0;
 }

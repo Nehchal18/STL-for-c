@@ -15,7 +15,6 @@
   - [Priority Queue](#priority-queue)
   - [Set](#set)
   - [Map](#map)
-- [Examples](#examples)
 - [License](#license)
 - [Contributing](#contributing)
 
@@ -531,18 +530,62 @@ Maps (associative arrays) in C-STL allow you to store and retrieve key-value pai
 ```c
 #include "map.h"
 
+int compare_ints(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int compare_strings(const void *a, const void *b) {
+    return strcmp((const char *)a, (const char *)b);
+}
+
 int main() {
-    Map map;
-    map_init(&map);
+    // Create a hashmap for integers
+    HashMap *int_map = hashmap_create(10, sizeof(int), sizeof(int), int_hash, compare_ints);
 
     // Insert key-value pairs
-    map_insert(&map, "key1", 100);
-    map_insert(&map, "key2", 200);
+    int key1 = 1, value1 = 100;
+    hashmap_insert(int_map, &key1, &value1);
+    
+    int key2 = 2, value2 = 200;
+    hashmap_insert(int_map, &key2, &value2);
 
     // Retrieve a value by key
-    int value = map_get(&map, "key1");
+    int *retrieved_value = (int *)hashmap_get(int_map, &key1);
+    if (retrieved_value) {
+        printf("Value for key %d: %d\n", key1, *retrieved_value);
+    }
 
-    map_free(&map);
+    // Check if a key exists in the map
+    if (hashmap_contains(int_map, &key2)) {
+        printf("Key %d is present in the map.\n", key2);
+    }
+
+    // Remove a key-value pair
+    hashmap_remove(int_map, &key1);
+
+    // Clear all key-value pairs
+    hashmap_clear(int_map);
+
+    // Destroy the hashmap and free memory
+    hashmap_destroy(int_map);
+
+    // Create a hashmap for strings
+    HashMap *string_map = hashmap_create(10, sizeof(char *), sizeof(int), string_hash, compare_strings);
+
+    // Insert key-value pairs
+    const char *str_key1 = "hello";
+    int str_value1 = 42;
+    hashmap_insert(string_map, &str_key1, &str_value1);
+
+    // Retrieve a value by string key
+    retrieved_value = (int *)hashmap_get(string_map, &str_key1);
+    if (retrieved_value) {
+        printf("Value for key '%s': %d\n", str_key1, *retrieved_value);
+    }
+
+    // Destroy the string map
+    hashmap_destroy(string_map);
+
     return 0;
 }
 ```
